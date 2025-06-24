@@ -1,0 +1,40 @@
+name: Isadora Pipeline Runner
+
+# Run every 30 minutes
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+
+  # Keep manual trigger for testing
+  workflow_dispatch:
+    inputs:
+      custom_message:
+        description: 'Custom log message'
+        required: false
+        default: 'Manual pipeline trigger'
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: Run Isadora Pipeline
+      env:
+        PIPELINE_URL: "https://isadora-pipeline-772695820577.us-central1.run.app/run-pipeline"
+        BEARER_TOKEN: ${{ secrets.ISADORA_BEARER_TOKEN }}
+        CUSTOM_MESSAGE: ${{ github.event.inputs.custom_message || 'Scheduled pipeline run every 30 minutes' }}
+      run: |
+        python scripts/run_isadora_pipeline.py
