@@ -41,7 +41,7 @@ def run_isadora_pipeline():
         response = requests.post(
             pipeline_url,
             headers=headers,
-            timeout=480  # 2 minutes timeout for pipeline operations
+            timeout=60 * 29  # 2 minutes timeout for pipeline operations
         )
 
         # Check if request was successful
