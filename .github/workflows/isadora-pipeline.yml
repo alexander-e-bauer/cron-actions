@@ -34,7 +34,7 @@ jobs:
     - name: Run Isadora Pipeline
       env:
         PIPELINE_URL: "https://isadora-pipeline-772695820577.us-central1.run.app/run-pipeline"
-        BEARER_TOKEN: ${{ secrets.ISADORA_BEARER_TOKEN }}
+        BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
         CUSTOM_MESSAGE: ${{ github.event.inputs.custom_message || 'Scheduled pipeline run every 30 minutes' }}
       run: |
         python scripts/run_isadora_pipeline.py
