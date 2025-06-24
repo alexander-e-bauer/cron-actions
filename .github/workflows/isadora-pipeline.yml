@@ -1,9 +1,9 @@
 name: Isadora Pipeline Runner
 
-# Run every 30 minutes
+# Run at the top of the hour (00) and half past (30) every hour
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '0,30 * * * *'
 
   # Keep manual trigger for testing
   workflow_dispatch:
@@ -35,6 +35,6 @@ jobs:
       env:
         PIPELINE_URL: "https://isadora-pipeline-772695820577.us-central1.run.app/run-pipeline"
         BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
-        CUSTOM_MESSAGE: ${{ github.event.inputs.custom_message || 'Scheduled pipeline run every 30 minutes' }}
+        CUSTOM_MESSAGE: ${{ github.event.inputs.custom_message || 'Scheduled pipeline run at :00 and :30' }}
       run: |
         python scripts/run_isadora_pipeline.py
