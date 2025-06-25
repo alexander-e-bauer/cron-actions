@@ -3,7 +3,7 @@ name: Isadora Pipeline Runner
 # Run at the top of the hour (00) and half past (30) every hour
 on:
   schedule:
-    - cron: '0,30 * * * *'
+    - cron: '2,32 * * * *'
 
   # Keep manual trigger for testing
   workflow_dispatch:
